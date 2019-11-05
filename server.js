@@ -15,6 +15,10 @@ const mongoose = require('mongoose')
 // Sets up the Express App
 // =============================================================
 const app = express()
+
+const http = require('http').Server(app)
+const io = require('socket.io')(http)
+
 const PORT = process.env.PORT || 3030
 
 app.use(cors())
@@ -39,13 +43,20 @@ app.use(session({
 require('./routes').apiRoutes(app)
 // require('./routes').authRoutes(app)
 
+io.on('connection', function (socket) {
+  console.log(socket.id, 'Connected!')
+  socket.on('disconnect', function () {
+    console.log(socket.id, 'Disconnected!')
+  })
+})
+
 // Syncing our Mongoose models and then starting our Express app
 // =============================================================
 // TODO: check for test flag for MongoDB
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/blobber-royale'
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
 
-app.listen(PORT, function () {
+http.listen(PORT, function () {
   console.log(
     '==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.',
     PORT,
