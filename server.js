@@ -16,7 +16,7 @@ const mongoose = require('mongoose')
 // =============================================================
 const app = express()
 
-const http = require('http').Server(app)
+const http = require('http').createServer(app)
 const io = require('socket.io')(http)
 
 const PORT = process.env.PORT || 3030
@@ -40,8 +40,8 @@ app.use(session({
 // const db = require('./models')
 
 // Routes
-require('./routes').apiRoutes(app)
 // require('./routes').authRoutes(app)
+require('./routes').apiRoutes(app)
 
 io.on('connection', function (socket) {
   console.log(socket.id, 'Connected!')
@@ -54,14 +54,8 @@ io.on('connection', function (socket) {
 // =============================================================
 // TODO: check for test flag for MongoDB
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/blobber-royale'
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
+mongoose.connect(MONGODB_URI, { useUnifiedTopology: true, useNewUrlParser: true })
 
 http.listen(PORT, function () {
-  console.log(
-    '==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.',
-    PORT,
-    PORT
-  )
-
+  console.log('==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.', PORT, PORT)
 })
-
