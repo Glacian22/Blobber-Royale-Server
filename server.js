@@ -64,3 +64,6 @@ mongoose.connect(MONGODB_URI, { useUnifiedTopology: true, useNewUrlParser: true 
 http.listen(PORT, function () {
   console.log('==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.', PORT, PORT)
 })
+
+// Exporting app for testing
+module.exports = app
