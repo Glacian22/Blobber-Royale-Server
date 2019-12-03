@@ -10,6 +10,7 @@ const express = require('express')
 const session = require('express-session')
 const cors = require('cors')
 const mongoose = require('mongoose')
+const morgan = require('morgan')
 // const passport = require('./config/passport')
 
 const PORT = process.env.PORT || 3030
@@ -22,6 +23,7 @@ const http = require('http').createServer(app)
 const io = require('socket.io')(http)
 
 app.use(cors())
+app.use(morgan('dev'))
 
 // Setting up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }))
