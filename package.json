@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node server.js",
     "watch": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "standard & mocha",
+    "lint": "standard",
+    "fix": "standard --fix"
   },
   "repository": {
     "type": "git",
@@ -21,6 +23,7 @@
   "homepage": "https://github.com/Glacian22/Blobber-Royale-Server#readme",
   "dependencies": {
     "axios": "^0.19.0",
+    "chai-http": "^4.3.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
@@ -29,6 +32,9 @@
     "socket.io": "^2.3.0"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.2.2",
+    "morgan": "^1.9.1",
     "nodemon": "^1.19.4",
     "standard": "^14.3.1"
   }
