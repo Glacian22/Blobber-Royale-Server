@@ -58,11 +58,13 @@ io.on('connection', function (socket) {
 // TODO: check for test flag for MongoDB
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/blobber-royale'
 mongoose.connect(MONGODB_URI, { useUnifiedTopology: true, useNewUrlParser: true })
+  .then(res => console.log('==> 🌎 Mongoose connected to mongodb://' + res.connections[0].host + '/' + res.connections[0].name))
+  .catch(error => console.log(error))
 
 // Starting the Express app
 // =============================================================
 http.listen(PORT, function () {
-  console.log('==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.', PORT, PORT)
+  console.log('==> 🌎 Listening on port %s. Visit http://localhost:%s/ in your browser.', PORT, PORT)
 })
 
 // Exporting app for testing
